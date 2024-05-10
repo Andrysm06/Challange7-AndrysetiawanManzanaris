@@ -34,10 +34,12 @@ const StarRating = ({ rating }) => {
 function HomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const totalPages = 10;
+  const loading = false;
 
-  const { data, loading, error, totalPages } =
-    useSelector((state) => state.movie) ?? {};
-
+  // const { data, loading, error, totalPages } =
+  //   useSelector((state) => state?.movie.data) ?? {};
+  const data = useSelector((state) => state?.movie?.data);
   console.log("data", data);
   const [currentPage, setCurrentPage] = useState(1);
 

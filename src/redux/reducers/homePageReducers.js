@@ -12,7 +12,8 @@ const homePageSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    fetchData(state) {
+    fetchDatas(state, action) {
+      state.data = action.payload;
       state.loading = true;
       state.error = null;
     },
@@ -29,6 +30,6 @@ const homePageSlice = createSlice({
   },
 });
 
-export const { fetchData, fetchDataSuccess, fetchDataError } =
+export const { fetchDatas, fetchDataSuccess, fetchDataError } =
   homePageSlice.actions;
 export default homePageSlice.reducer;
