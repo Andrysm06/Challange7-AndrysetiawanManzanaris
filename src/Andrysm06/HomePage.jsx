@@ -35,10 +35,9 @@ function HomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data, loading, error, totalPages } = useSelector(
-    (state) => state.movie
-  );
-
+  const { data, loading, error, totalPages } =
+    useSelector((state) => state.movie) ?? {};
+  console.log("data", data);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
