@@ -34,11 +34,8 @@ const StarRating = ({ rating }) => {
 function HomePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const totalPages = 10;
-  const loading = false;
+  const totalPages = 1;
 
-  // const { data, loading, error, totalPages } =
-  //   useSelector((state) => state?.movie.data) ?? {};
   const data = useSelector((state) => state?.movie?.data);
   console.log("data", data);
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,10 +57,6 @@ function HomePage() {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <motion.div

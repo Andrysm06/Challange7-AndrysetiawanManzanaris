@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: [],
-  loading: false,
   error: null,
   totalPages: 1,
   currentPage: 1,
@@ -14,17 +13,16 @@ const homePageSlice = createSlice({
   reducers: {
     fetchDatas(state, action) {
       state.data = action.payload;
-      state.loading = true;
+
       state.error = null;
     },
     fetchDataSuccess(state, action) {
       state.data = action.payload;
-      state.loading = false;
+
       state.totalPages = action.payload.totalPages;
       state.error = null;
     },
     fetchDataError(state, action) {
-      state.loading = false;
       state.error = action.payload;
     },
   },
