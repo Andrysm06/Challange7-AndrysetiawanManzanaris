@@ -38,7 +38,7 @@ function HomePage() {
   const { data, loading, error, totalPages } = useSelector(
     (state) => state.movie
   );
-
+  console.log("data", data);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
