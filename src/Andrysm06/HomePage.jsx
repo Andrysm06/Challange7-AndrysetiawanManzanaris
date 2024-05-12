@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../redux/actions/homePageActions";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const StarRating = ({ rating }) => {
   const stars = [];
@@ -46,6 +47,13 @@ function HomePage() {
       dispatch(fetchData(currentPage));
     }
   }, [dispatch, currentPage, totalPages]);
+
+  const scrollToMovie = () => {
+    const movieElement = document.getElementById("movie");
+    if (movieElement) {
+      movieElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
@@ -88,12 +96,15 @@ function HomePage() {
                   W Movies
                 </h1>
               </div>
-              <a
-                href="#movie"
-                className="bg-yellow-400 rounded-full px-12 py-3 text-white font-semibold hover:bg-yellow-200/40"
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={scrollToMovie}
+                className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-200 flex items-center"
               >
+                <FontAwesomeIcon icon={faPlay} className="mr-2" />
                 Get Started
-              </a>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -148,12 +159,15 @@ function HomePage() {
           )}
         </div>
         <div className="flex justify-center items-center h-12">
-          <a
-            href="/TrandingMovies"
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             className="bg-yellow-400 rounded-full px-8 py-1 text-white font-semibold hover:bg-yellow-200/40"
           >
-            View More
-          </a>
+            <Link to="/TrandingMovies" className="text-white">
+              View More
+            </Link>
+          </motion.button>
         </div>
       </motion.section>
       <Footer />

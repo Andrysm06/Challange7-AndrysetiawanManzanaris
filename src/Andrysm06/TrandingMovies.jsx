@@ -143,47 +143,55 @@ const TrendingMovies = () => {
             <Link to="/" className="mr-2">
               <FontAwesomeIcon icon={faHome} />
             </Link>
-            <button
+            <motion.button
               onClick={goToPrevPage}
               disabled={currentPage === 1}
               className={`${
                 currentPage === 1 ? "bg-gray-700" : "bg-yellow-400"
               } px-4 py-2 rounded-full mr-2`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               Prev
-            </button>
+            </motion.button>
             {[...Array(totalPages > 8 ? 8 : totalPages).keys()].map((num) => {
               const pageNumber =
                 currentPage > 5 ? currentPage + num - 4 : num + 1;
               return (
-                <button
+                <motion.button
                   key={pageNumber}
                   onClick={() => setCurrentPage(pageNumber)}
                   className={`${
                     currentPage === pageNumber ? "bg-yellow-400" : "bg-gray-700"
                   } px-4 py-2 rounded-full mr-2`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   {pageNumber}
-                </button>
+                </motion.button>
               );
             })}
             {totalPages > 8 && (
-              <button
+              <motion.button
                 onClick={() => setCurrentPage(currentPage + 8)}
                 className="bg-gray-700 px-4 py-2 rounded-full"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 ...
-              </button>
+              </motion.button>
             )}
-            <button
+            <motion.button
               onClick={goToNextPage}
               disabled={currentPage === totalPages}
               className={`${
                 currentPage === totalPages ? "bg-gray-700" : "bg-yellow-400"
               } px-4 py-2 rounded-full ml-2`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               Next
-            </button>
+            </motion.button>
           </div>
         </div>
       )}

@@ -1,8 +1,9 @@
+// Import komponen motion dari framer-motion
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // Import motion dari framer-motion
 import Navbar from "../components/Navbar";
-import { useNavigate, Link } from "react-router-dom"; // Tambahkan impor Link di sini
+import { useNavigate, Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
@@ -138,7 +139,8 @@ const PopularMovies = () => {
             ))}
           </div>
           <div className="flex justify-center mt-8">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
               onClick={goToPrevPage}
               disabled={currentPage === 1}
               className={`${
@@ -146,31 +148,34 @@ const PopularMovies = () => {
               } px-4 py-2 rounded-full mr-2`}
             >
               Prev
-            </button>
+            </motion.button>
             {[...Array(totalPages > 8 ? 8 : totalPages).keys()].map((num) => {
               const pageNumber =
                 currentPage > 5 ? currentPage + num - 4 : num + 1;
               return (
-                <button
+                <motion.button
                   key={pageNumber}
+                  whileHover={{ scale: 1.1 }}
                   onClick={() => setCurrentPage(pageNumber)}
                   className={`${
                     currentPage === pageNumber ? "bg-yellow-400" : "bg-gray-700"
                   } px-4 py-2 rounded-full mr-2`}
                 >
                   {pageNumber}
-                </button>
+                </motion.button>
               );
             })}
             {totalPages > 8 && (
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
                 onClick={() => setCurrentPage(currentPage + 8)}
                 className="bg-gray-700 px-4 py-2 rounded-full"
               >
                 ...
-              </button>
+              </motion.button>
             )}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1 }}
               onClick={goToNextPage}
               disabled={currentPage === totalPages}
               className={`${
@@ -178,7 +183,7 @@ const PopularMovies = () => {
               } px-4 py-2 rounded-full ml-2`}
             >
               Next
-            </button>
+            </motion.button>
           </div>
         </div>
       )}
