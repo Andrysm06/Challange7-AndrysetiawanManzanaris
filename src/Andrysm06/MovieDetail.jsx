@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
 
@@ -35,6 +35,10 @@ function MovieDetail() {
     }
   }, []);
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
     <div>
       <Navbar />
@@ -57,12 +61,12 @@ function MovieDetail() {
                 >
                   Login
                 </motion.a>
-                <Link
-                  to="/"
+                <button
+                  onClick={goBack}
                   className=" mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
                 >
                   Back to Home
-                </Link>
+                </button>
               </div>
             ) : (
               <div
@@ -90,12 +94,12 @@ function MovieDetail() {
                       ))}
                   </ul>
 
-                  <Link
-                    to="/"
+                  <button
+                    onClick={goBack}
                     className="inline-block mt-4 bg-yellow-400 rounded-full px-12 py-3 text-white font-semibold hover:bg-yellow-200"
                   >
                     Back
-                  </Link>
+                  </button>
                 </div>
               </div>
             )}
