@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
+import YouTube from "react-youtube";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
 
@@ -12,6 +15,8 @@ function MovieDetail() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const fetchMovieDetail = async () => {
     try {
@@ -19,6 +24,17 @@ function MovieDetail() {
         `https://api.themoviedb.org/3/movie/${location.state.id}?language=en-US&api_key=${API_KEY}`
       );
       setData(response.data);
+
+      // Fetch trailer data
+      const trailerResponse = await axios.get(
+        `https://api.themoviedb.org/3/movie/${location.state.id}/videos?api_key=${API_KEY}&language=en-US`
+      );
+      const trailer = trailerResponse.data.results.find(
+        (video) => video.type === "Trailer"
+      );
+      if (trailer) {
+        setTrailerUrl(trailer.key);
+      }
     } catch (error) {
       console.error("Error fetching data: ", error);
       setError("Terjadi kesalahan saat mengambil data.");
@@ -61,12 +77,12 @@ function MovieDetail() {
                 >
                   Login
                 </motion.a>
-                <button
-                  onClick={goBack}
+                <Link
+                  to="/"
                   className=" mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
                 >
                   Back to Home
-                </button>
+                </Link>
               </div>
             ) : (
               <div
@@ -94,19 +110,52 @@ function MovieDetail() {
                       ))}
                   </ul>
 
-                  <button
-                    onClick={goBack}
-                    className="inline-block mt-4 bg-yellow-400 rounded-full px-12 py-3 text-white font-semibold hover:bg-yellow-200"
-                  >
-                    Back
-                  </button>
+                  {trailerUrl && !isPlaying && (
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-200 flex items-center"
+                      onClick={() => setIsPlaying(true)}
+                    >
+                      <FontAwesomeIcon icon={faPlay} className="mr-2" />
+                      Play Trailer
+                    </motion.button>
+                  )}
+
+                  {trailerUrl && isPlaying && (
+                    <div className="fixed inset-0 z-50 flex justify-center items-center">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0 }}
+                      >
+                        <YouTube videoId={trailerUrl} />
+                        <button
+                          onClick={() => setIsPlaying(false)}
+                          className="bg-red-500 text-white px-4 py-2 rounded mt-4 hover:bg-red-600"
+                        >
+                          Close Trailer
+                        </button>
+                      </motion.div>
+                    </div>
+                  )}
+
+                  {!isPlaying && (
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-200 flex items-center"
+                      onClick={goBack}
+                    >
+                      <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+                      Back
+                    </motion.button>
+                  )}
                 </div>
               </div>
             )}
-            <Footer />
           </div>
         )}
       </section>
+      <Footer />
     </div>
   );
 }

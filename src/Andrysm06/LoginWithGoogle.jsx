@@ -64,9 +64,9 @@ const LoginWithGoogle = () => {
         type="button"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="relative border max-w-[200px] text-white border-gray-300 py-1 w-full text-center rounded-md font-medium"
+        className="relative border max-w-[220px] text-white border-gray-300 py-1 w-full text-pretty rounded-md font-medium"
       >
-        Google
+        Sign in with Google
         <svg
           className="absolute top-1/2 -translate-y-1/2 left-2"
           xmlns="http://www.w3.org/2000/svg"

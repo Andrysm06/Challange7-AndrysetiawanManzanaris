@@ -70,7 +70,7 @@ function HomePage() {
       <div className="relative h-[240px] md:h-[400px] lg:h-[428px]">
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
           <img
-            src="/int.jpg"
+            src="/int2.jpg"
             alt="Background"
             className="w-full h-full object-cover"
           />
