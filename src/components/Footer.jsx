@@ -20,12 +20,12 @@ function Footer() {
             <ul className="flex flex-row text-xs md:text-sm text-white space-x-7 md:p-0">
               <li>
                 <a href="/AboutPage" className="hover:text-gray-300">
-                  Tentang Kami
+                  About Us
                 </a>
               </li>
               <li>
                 <a href="/ContactPage" className="hover:text-gray-300">
-                  Kontak
+                  Contact
                 </a>
               </li>
             </ul>

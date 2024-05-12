@@ -10,10 +10,10 @@ function ContactPage() {
           WMovies
         </a>
       </div>
-      <h1 className="text-white text-3xl font-bold mb-4">Kontak Kami</h1>
+      <h1 className="text-white text-3xl font-bold mb-4">Contact Us</h1>
       <div className="flex flex-col space-y-4">
         <p className="text-lg text-white">
-          Silakan hubungi kami melalui salah satu metode berikut:
+          Please contact us via one of the following methods:
         </p>
         <div className="flex flex-col space-y-2">
           <p className="text-lg text-white">Email: wmovies@gmail.com</p>
