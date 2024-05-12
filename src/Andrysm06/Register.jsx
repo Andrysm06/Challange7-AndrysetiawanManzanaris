@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const MotionButton = motion.button;
 const MotionInput = motion.input;
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,11 +19,11 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       setLoading(true);
-      // Validasi password
+      // Validate password
       if (password.length < 8) {
         throw new Error("Password must be at least 8 characters long");
       }
-      // Lanjutkan dengan permintaan hanya jika password memenuhi persyaratan
+      // Proceed with the request only if the password meets the requirements
       const response = await axios.post(
         "https://shy-cloud-3319.fly.dev/api/v1/auth/register",
         {
@@ -34,7 +35,7 @@ const Register = () => {
       if (response.status === 201) {
         setError("");
         setSuccessMessage(
-          "Registration successful. Redirecting to login page..."
+          "Registration successful. Redirecting to the login page..."
         );
         setTimeout(() => {
           window.location.href = "/Login-register";
@@ -45,6 +46,12 @@ const Register = () => {
       console.error("Error:", error);
       setError(error.response.data.message || "An error occurred");
       setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleRegister();
     }
   };
 
@@ -64,27 +71,27 @@ const Register = () => {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          onKeyPress={handleKeyPress}
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05 }} // Move whileHover to MotionInput
         />
         <MotionInput
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onKeyPress={handleKeyPress}
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05 }} // Move whileHover to MotionInput
         />
         <MotionInput
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress}
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05 }} // Move whileHover to MotionInput
         />
         <MotionButton
           onClick={handleRegister}
@@ -95,20 +102,13 @@ const Register = () => {
         >
           {loading ? "Loading..." : "Register"}
         </MotionButton>
-        {error && (
-          <p className="mt-4 text-red-500" whileHover={{ scale: 1.05 }}>
-            {error}
-          </p>
-        )}
+        {error && <p className="mt-4 text-red-500">{error}</p>}
         {successMessage && (
-          <p className="mt-4 text-green-500" whileHover={{ scale: 1.05 }}>
-            {successMessage}
-          </p>
+          <p className="mt-4 text-green-500">{successMessage}</p>
         )}
         <Link
           to="/Login-register"
           className="text-white mt-2 hover:text-yellow-200"
-          whileHover={{ scale: 1.05 }}
         >
           Already have an account? Login
         </Link>

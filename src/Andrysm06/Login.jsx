@@ -44,6 +44,12 @@ const Login = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   const fetchUserData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -56,10 +62,10 @@ const Login = () => {
         }
       );
       console.log("User data:", response.data);
-      // Lakukan sesuatu dengan data pengguna jika perlu
+      // Do something with user data if needed
     } catch (error) {
       console.error("Error fetching user data:", error);
-      // Tangani kesalahan jika permintaan gagal
+      // Handle error if request fails
     }
   };
 
@@ -79,6 +85,7 @@ const Login = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onKeyPress={handleKeyPress} // Add onKeyPress event listener
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
         />
         <input
@@ -86,6 +93,7 @@ const Login = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress} // Add onKeyPress event listener
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
         />
         <MotionButton
