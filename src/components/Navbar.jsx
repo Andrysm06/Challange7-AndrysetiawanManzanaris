@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Search } from "react-feather";
+import { Search, Check, X } from "react-feather";
 
 function Navbar() {
   const [isHidden, setIsHidden] = useState(false);
@@ -56,25 +56,25 @@ function Navbar() {
           </a>
           <a
             href="/search-movie"
-            className="text-white hover:text-yellow-200 transition-colors duration-300"
+            className="text-white hover:text-yellow-200 transition-colors duration-300 flex items-center gap-2"
           >
-            🔍Search
+            <Search className="h-4 w-4" />
+            Search
           </a>
           {token ? (
             <div>
               <button
                 onClick={handleLogout} // Menggunakan handleLogout untuk menampilkan modal konfirmasi
-                className="bg-red-900 rounded-full px-3 py-1 text-white hover:bg-yellow-200/40"
+                className="bg-red-700 rounded-full px-3 py-1 text-white hover:bg-red-900"
               >
                 Logout
               </button>
             </div>
           ) : (
-            <a
-              href="/Login-register"
-              className="text-white hover:text-yellow-200 transition-colors duration-300"
-            >
-              Login
+            <a href="/Login-register">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-full shadow-lg">
+                Login
+              </button>
             </a>
           )}
         </div>
@@ -85,20 +85,20 @@ function Navbar() {
       {/* Modal Konfirmasi Logout */}
       {confirmLogout && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg text-center">
-            <p className="mb-4">Are you sure you want to logout?</p>
+          <div className="bg-white p-6 rounded-lg text-center z-20">
+            <p className="mb-4 text-lg">Are you sure you want to logout?</p>
             <div className="flex justify-center">
               <button
                 onClick={handleConfirmLogout} // Menggunakan handleConfirmLogout untuk logout
-                className="bg-red-900 rounded-full px-3 py-1 text-white mr-2 hover:bg-yellow-200/40"
+                className="bg-red-700 rounded-full px-3 py-1 text-white mr-2 hover:bg-red-900"
               >
-                Yes
+                <Check size={16} />
               </button>
               <button
                 onClick={handleCancelLogout} // Menggunakan handleCancelLogout untuk membatalkan logout
                 className="bg-gray-300 rounded-full px-3 py-1 text-gray-700 hover:bg-gray-400"
               >
-                No
+                <X size={16} />
               </button>
             </div>
           </div>

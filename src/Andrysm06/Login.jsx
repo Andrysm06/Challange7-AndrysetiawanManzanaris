@@ -28,8 +28,8 @@ const Login = () => {
       if (response.status === 200) {
         const { token } = response.data;
         localStorage.setItem("token", token);
-        await fetchUserData(); // Call fetchUserData after setting the token
-        navigate("/"); // Redirect to the home page after successful login
+        await fetchUserData();
+        navigate("/");
       } else {
         setError("Invalid email or password");
       }
@@ -62,10 +62,8 @@ const Login = () => {
         }
       );
       console.log("User data:", response.data);
-      // Do something with user data if needed
     } catch (error) {
       console.error("Error fetching user data:", error);
-      // Handle error if request fails
     }
   };
 
@@ -85,7 +83,7 @@ const Login = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onKeyPress={handleKeyPress} // Add onKeyPress event listener
+          onKeyPress={handleKeyPress}
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
         />
         <input
@@ -93,7 +91,7 @@ const Login = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onKeyPress={handleKeyPress} // Add onKeyPress event listener
+          onKeyPress={handleKeyPress}
           className="w-64 px-4 py-2 mb-4 border rounded-lg"
         />
         <MotionButton
@@ -110,7 +108,37 @@ const Login = () => {
           Don't have an account? Register
         </Link>
       </>
-      <div className="mb-2 text-justify text-white">-ATAU-</div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5 }}
+        className="mb-2 text-justify text-white"
+        style={{ display: "flex", alignItems: "center", gap: "10px" }}
+      >
+        <motion.div
+          style={{ flex: 1, height: "1px", background: "white" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          exit={{ scaleX: 0 }}
+          transition={{ duration: 0.5 }}
+        ></motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          or
+        </motion.div>
+        <motion.div
+          style={{ flex: 1, height: "1px", background: "white" }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          exit={{ scaleX: 0 }}
+          transition={{ duration: 0.5 }}
+        ></motion.div>
+      </motion.div>
       <LoginWithGoogle />
     </motion.div>
   );

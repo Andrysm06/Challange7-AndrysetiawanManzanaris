@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../components/Navbar";
-import { useNavigate, Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
@@ -34,7 +36,7 @@ const StarRating = ({ rating }) => {
 
 const TrendingMovies = () => {
   const [movies, setMovies] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -138,6 +140,9 @@ const TrendingMovies = () => {
             ))}
           </div>
           <div className="flex justify-center mt-8">
+            <Link to="/" className="mr-2">
+              <FontAwesomeIcon icon={faHome} />
+            </Link>
             <button
               onClick={goToPrevPage}
               disabled={currentPage === 1}
