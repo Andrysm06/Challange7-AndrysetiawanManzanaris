@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import { useNavigate, Link } from "react-router-dom"; // Tambahkan impor Link di sini
+import Footer from "../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
 const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc`;
@@ -181,6 +182,7 @@ const PopularMovies = () => {
           </div>
         </div>
       )}
+      <Footer />
     </motion.div>
   );
 };

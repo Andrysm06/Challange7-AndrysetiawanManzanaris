@@ -6,6 +6,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../redux/actions/homePageActions";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const StarRating = ({ rating }) => {
   const stars = [];
@@ -155,6 +156,7 @@ function HomePage() {
           </a>
         </div>
       </motion.section>
+      <Footer />
     </motion.div>
   );
 }

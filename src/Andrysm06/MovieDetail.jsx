@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import Footer from "../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
 
@@ -98,6 +99,7 @@ function MovieDetail() {
                 </div>
               </div>
             )}
+            <Footer />
           </div>
         )}
       </section>

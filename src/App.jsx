@@ -10,6 +10,8 @@ import Register from "./Andrysm06/Register";
 import LoginWithGoogle from "./Andrysm06/LoginWithGoogle";
 import PopularMovies from "./Andrysm06/PopularMovies";
 import TrandingMovies from "./Andrysm06/TrandingMovies";
+import AboutPage from "./components/components2/AboutPage";
+import ContactPage from "./components/components2/ContactPage";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -48,6 +50,14 @@ export default function App() {
     {
       path: "/TrandingMovies",
       element: <TrandingMovies />,
+    },
+    {
+      path: "/AboutPage",
+      element: <AboutPage />,
+    },
+    {
+      path: "/ContactPage",
+      element: <ContactPage />,
     },
   ]);
 

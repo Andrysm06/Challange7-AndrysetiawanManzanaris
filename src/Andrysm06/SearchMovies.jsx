@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
+import Footer from "../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
 
@@ -182,6 +183,7 @@ const SearchMovies = () => {
           </div>
         )}
       </section>
+      <Footer />
     </div>
   );
 };
