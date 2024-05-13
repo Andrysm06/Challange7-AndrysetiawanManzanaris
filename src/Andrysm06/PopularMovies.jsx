@@ -1,13 +1,12 @@
-// Import komponen motion dari framer-motion
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { motion } from "framer-motion"; // Import motion dari framer-motion
-import Navbar from "../components/Navbar";
+import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
-const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc`;
+const API_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US`;
 
 const StarRating = ({ rating }) => {
   const stars = [];
@@ -33,7 +32,7 @@ const StarRating = ({ rating }) => {
   );
 };
 
-const PopularMovies = () => {
+const TopRatedMovies = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -50,17 +49,17 @@ const PopularMovies = () => {
   }, []);
 
   useEffect(() => {
-    const fetchPopularMovies = async () => {
+    const fetchTopRatedMovies = async () => {
       try {
         const response = await axios.get(`${API_URL}&page=${currentPage}`);
         setMovies(response.data.results);
         setTotalPages(response.data.total_pages);
       } catch (error) {
-        console.error("Error fetching popular movies:", error);
+        console.error("Error fetching top rated movies:", error);
       }
     };
 
-    fetchPopularMovies();
+    fetchTopRatedMovies();
   }, [currentPage]);
 
   const goToNextPage = () => {
@@ -192,4 +191,4 @@ const PopularMovies = () => {
   );
 };
 
-export default PopularMovies;
+export default TopRatedMovies;
