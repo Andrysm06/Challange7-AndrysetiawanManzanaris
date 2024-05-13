@@ -17,6 +17,8 @@ function MovieDetail() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState("");
   const [isPlaying, setIsPlaying] = useState(false);
+  const [genres, setGenres] = useState([]);
+  const [isTrailerPlaying, setIsTrailerPlaying] = useState(false);
 
   const fetchMovieDetail = async () => {
     try {
@@ -35,6 +37,18 @@ function MovieDetail() {
       if (trailer) {
         setTrailerUrl(trailer.key);
       }
+
+      // Fetch genre data
+      const genresResponse = await axios.get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
+      );
+      const genresMap = new Map(
+        genresResponse.data.genres.map((genre) => [genre.id, genre.name])
+      );
+      const movieGenres = response.data.genres.map((genre) =>
+        genresMap.get(genre.id)
+      );
+      setGenres(movieGenres);
     } catch (error) {
       console.error("Error fetching data: ", error);
       setError("Terjadi kesalahan saat mengambil data.");
@@ -50,6 +64,12 @@ function MovieDetail() {
       setIsLoggedIn(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!isPlaying && isTrailerPlaying) {
+      setGenres([]);
+    }
+  }, [isPlaying, isTrailerPlaying]);
 
   const goBack = () => {
     window.history.back();
@@ -96,25 +116,49 @@ function MovieDetail() {
                 <div className="absolute inset-0 bg-black opacity-70"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                   <h1 className="text-4xl font-bold mb-4">{data?.title}</h1>
-                  <h2 className="text-xl font-semibold">Rating</h2>
-                  <p className="text-lg font-normal text-white ps-4">
-                    {data?.vote_average}
-                  </p>
-                  <div className="flex justify-center items-center mb-4"></div>
-                  <p className="text-lg mb-8">{data?.overview}</p>
-                  <h2 className="text-xl font-semibold">Country of Origin</h2>
-                  <ul className="text-lg font-normal text-white ps-4">
-                    {data?.production_countries &&
-                      data?.production_countries.map((country) => (
-                        <li key={country.iso_3166_1}>{country.name}</li>
-                      ))}
-                  </ul>
+                  {!isTrailerPlaying && (
+                    <>
+                      <h2 className="text-xl font-semibold">Rating</h2>
+                      <p className="text-lg font-normal text-white ps-4">
+                        {data?.vote_average}
+                      </p>
+                      <div className="flex justify-center items-center mb-4"></div>
+                      <p className="text-lg mb-8">{data?.overview}</p>
+                      <h2 className="text-xl font-semibold">
+                        Country of Origin
+                      </h2>
+                      <ul className="text-lg font-normal text-white ps-4">
+                        {data?.production_countries &&
+                          data?.production_countries.map((country) => (
+                            <li key={country.iso_3166_1}>{country.name}</li>
+                          ))}
+                      </ul>
+                    </>
+                  )}
+                  {!isTrailerPlaying && (
+                    <>
+                      <h2 className="text-xl font-semibold">Genres</h2>
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {genres.map((genre) => (
+                          <span
+                            key={genre}
+                            className="bg-gray-800 text-white px-2 py-1 rounded"
+                          >
+                            {genre}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  )}
 
-                  {trailerUrl && !isPlaying && (
+                  {trailerUrl && !isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-200 flex items-center"
-                      onClick={() => setIsPlaying(true)}
+                      onClick={() => {
+                        setIsPlaying(true);
+                        setIsTrailerPlaying(true);
+                      }}
                     >
                       <FontAwesomeIcon icon={faPlay} className="mr-2" />
                       Play Trailer
@@ -130,7 +174,10 @@ function MovieDetail() {
                       >
                         <YouTube videoId={trailerUrl} />
                         <button
-                          onClick={() => setIsPlaying(false)}
+                          onClick={() => {
+                            setIsPlaying(false);
+                            setIsTrailerPlaying(false);
+                          }}
                           className="bg-red-700 text-white px-4 py-2 rounded mt-4 hover:bg-red-900"
                         >
                           Close Trailer
@@ -139,7 +186,7 @@ function MovieDetail() {
                     </div>
                   )}
 
-                  {!isPlaying && (
+                  {!isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-200 flex items-center"
