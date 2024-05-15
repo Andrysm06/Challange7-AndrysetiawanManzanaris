@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Footer from "../components/Footer";
 import YouTube from "react-youtube";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 const API_KEY = "86805d3f5cae4725244fe5e0f2c0bc28";
 
-function MovieDetail() {
+function DetailTV() {
   let location = useLocation();
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -20,16 +20,16 @@ function MovieDetail() {
   const [genres, setGenres] = useState([]);
   const [isTrailerPlaying, setIsTrailerPlaying] = useState(false);
 
-  const fetchMovieDetail = async () => {
+  const fetchTVDetail = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${location.state.id}?language=en-US&api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/tv/${location.state.id}?language=en-US&api_key=${API_KEY}`
       );
       setData(response.data);
 
       // Fetch trailer data
       const trailerResponse = await axios.get(
-        `https://api.themoviedb.org/3/movie/${location.state.id}/videos?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/tv/${location.state.id}/videos?api_key=${API_KEY}&language=en-US`
       );
       const trailer = trailerResponse.data.results.find(
         (video) => video.type === "Trailer"
@@ -40,15 +40,15 @@ function MovieDetail() {
 
       // Fetch genre data
       const genresResponse = await axios.get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=en-US`
       );
       const genresMap = new Map(
         genresResponse.data.genres.map((genre) => [genre.id, genre.name])
       );
-      const movieGenres = response.data.genres.map((genre) =>
+      const tvGenres = response.data.genres.map((genre) =>
         genresMap.get(genre.id)
       );
-      setGenres(movieGenres);
+      setGenres(tvGenres);
     } catch (error) {
       console.error("Error fetching data: ", error);
       setError("Terjadi kesalahan saat mengambil data.");
@@ -56,7 +56,7 @@ function MovieDetail() {
   };
 
   useEffect(() => {
-    fetchMovieDetail();
+    fetchTVDetail();
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
@@ -88,7 +88,7 @@ function MovieDetail() {
             {!isLoggedIn ? (
               <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
                 <p className="text-lg mb-4">
-                  You must first log in to view movie details.
+                  You must first log in to view TV show details.
                 </p>
                 <motion.a
                   whileHover={{ scale: 1.1 }}
@@ -99,7 +99,7 @@ function MovieDetail() {
                 </motion.a>
                 <Link
                   to="/"
-                  className=" mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
+                  className="mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
                 >
                   Back to Home
                 </Link>
@@ -125,7 +125,7 @@ function MovieDetail() {
                       Back
                     </motion.button>
                   )}
-                  <h1 className="text-4xl font-bold mb-4">{data?.title}</h1>
+                  <h1 className="text-4xl font-bold mb-4">{data?.name}</h1>
                   {!isTrailerPlaying && (
                     <>
                       <h2 className="text-xl font-semibold">Rating</h2>
@@ -145,10 +145,10 @@ function MovieDetail() {
                       </ul>
                       <h2 className="text-xl font-semibold">Release Date</h2>
                       <p className="text-lg font-normal text-white ps-4 mb-4">
-                        {data?.release_date}
+                        {data?.first_air_date}
                       </p>
                       <h2 className="text-xl font-semibold">Genres</h2>
-                      <div className="flex flex-wrap gap-2 justify-center">
+                      <div className="flex flex-wrap gap-2 justify-center mb-4">
                         {genres.map((genre) => (
                           <span
                             key={genre}
@@ -160,6 +160,7 @@ function MovieDetail() {
                       </div>
                     </>
                   )}
+
                   {trailerUrl && !isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
@@ -208,4 +209,4 @@ function MovieDetail() {
   );
 }
 
-export default MovieDetail;
+export default DetailTV;

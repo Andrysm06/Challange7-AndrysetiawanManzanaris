@@ -12,6 +12,10 @@ import PopularMovies from "./Andrysm06/PopularMovies";
 import TrandingMovies from "./Andrysm06/TrandingMovies";
 import AboutPage from "./components/components2/AboutPage";
 import ContactPage from "./components/components2/ContactPage";
+import UpcomingMovies from "./Andrysm06/UpComingMovies";
+import PopularTV from "./Andrysm06/serialTV/PopularTv";
+import TopRatedTV from "./Andrysm06/serialTV/TopRatedTv";
+import DetailTV from "./Andrysm06/serialTV/TvDetail";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -58,6 +62,22 @@ export default function App() {
     {
       path: "/ContactPage",
       element: <ContactPage />,
+    },
+    {
+      path: "/UpComingMovies",
+      element: <UpcomingMovies />,
+    },
+    {
+      path: "/PopularTv",
+      element: <PopularTV />,
+    },
+    {
+      path: "/TopRatedTv",
+      element: <TopRatedTV />,
+    },
+    {
+      path: "/tv-details",
+      element: <DetailTV />,
     },
   ]);
 

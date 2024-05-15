@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { Search, Check, X } from "react-feather";
 
 function Navbar() {
-  const [confirmLogout, setConfirmLogout] = useState(false); // State untuk konfirmasi logout
+  const [confirmLogout, setConfirmLogout] = useState(false); // State for logout confirmation
+  const [showTVMenu, setShowTVMenu] = useState(false); // State for showing TV submenu
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
-    setConfirmLogout(true); // Menampilkan modal konfirmasi logout
+    setConfirmLogout(true); // Show logout confirmation modal
   };
 
   const handleConfirmLogout = () => {
     localStorage.removeItem("token");
-    setConfirmLogout(false); // Sembunyikan modal konfirmasi logout
+    setConfirmLogout(false); // Hide logout confirmation modal
   };
 
   const handleCancelLogout = () => {
-    setConfirmLogout(false); // Sembunyikan modal konfirmasi logout
+    setConfirmLogout(false); // Hide logout confirmation modal
   };
 
   return (
@@ -24,7 +25,39 @@ function Navbar() {
         <a href="/" className="text-yellow-400 text-2xl font-bold">
           WMovies
         </a>
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 relative">
+          <div>
+            <a
+              href="#"
+              className="text-white hover:text-yellow-200 transition-colors duration-300"
+              onClick={() => setShowTVMenu(!showTVMenu)} // Toggle submenu visibility on click
+            >
+              TV
+            </a>
+            {showTVMenu && ( // Show submenu if showTVMenu is true
+              <div className="absolute top-full left-0 bg-navy text-white py-2 px-4 rounded shadow-lg">
+                <a
+                  href="/PopularTv"
+                  className="block py-1 hover:text-yellow-200"
+                >
+                  Trending TV
+                </a>
+
+                <a
+                  href="/TopRatedTv"
+                  className="block py-1 hover:text-yellow-200"
+                >
+                  Top TV
+                </a>
+              </div>
+            )}
+          </div>
+          <a
+            href="/UpComingMovies"
+            className="text-white hover:text-yellow-200 transition-colors duration-300"
+          >
+            UpComing
+          </a>
           <a
             href="/TopRatedMovies"
             className="text-white hover:text-yellow-200 transition-colors duration-300"
@@ -41,7 +74,7 @@ function Navbar() {
           {token ? (
             <div>
               <button
-                onClick={handleLogout} // Menggunakan handleLogout untuk menampilkan modal konfirmasi
+                onClick={handleLogout} // Use handleLogout to show logout confirmation modal
                 className="bg-red-700 rounded-full px-3 py-1 text-white hover:bg-red-900"
               >
                 Logout
@@ -59,20 +92,20 @@ function Navbar() {
           <Search className="h-6 w-6 text-white" />
         </div>
       </div>
-      {/* Modal Konfirmasi Logout */}
+      {/* Logout Confirmation Modal */}
       {confirmLogout && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg text-center z-20">
             <p className="mb-4 text-lg">Are you sure you want to logout?</p>
             <div className="flex justify-center">
               <button
-                onClick={handleConfirmLogout} // Menggunakan handleConfirmLogout untuk logout
+                onClick={handleConfirmLogout} // Use handleConfirmLogout to logout
                 className="bg-red-700 rounded-full px-3 py-1 text-white mr-2 hover:bg-red-900"
               >
                 <Check size={16} />
               </button>
               <button
-                onClick={handleCancelLogout} // Menggunakan handleCancelLogout untuk membatalkan logout
+                onClick={handleCancelLogout} // Use handleCancelLogout to cancel logout
                 className="bg-gray-300 rounded-full px-3 py-1 text-gray-700 hover:bg-gray-400"
               >
                 <X size={16} />
