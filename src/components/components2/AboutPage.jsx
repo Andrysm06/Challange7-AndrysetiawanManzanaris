@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-
 import { Link } from "react-router-dom";
 
 function AboutPage() {
@@ -10,30 +7,62 @@ function AboutPage() {
         <a className="text-yellow-400 text-xl font-bold">WMovies</a>
       </div>
       <h1 className="text-white text-3xl font-bold mb-4">About Us</h1>
-      <p className="text-lg text-white">
-        WMovies is an online platform dedicated to delivering an extraordinary
-        film-watching experience to users worldwide. One aspect that makes
-        WMovies unique is our commitment to creating high-quality films that
-        entertain and educate.
+      <p className="text-lg text-white mb-4">
+        WMovies adalah sebuah situs web yang berfungsi sebagai database untuk
+        berbagai film, menyediakan informasi yang komprehensif mengenai
+        film-film tersebut. Berikut adalah beberapa fitur utama yang ditawarkan
+        oleh WMovies:
       </p>
-      <p className="text-lg text-white">
-        Our creative team consists of directors, screenwriters, producers, and
-        more, who work hard every day to produce amazing works. We believe that
-        every film has a story worth telling, and we strive to present a variety
-        of stories from diverse backgrounds and cultures.
+      <p className="text-lg text-white mb-4">
+        Setiap film yang terdaftar di WMovies disertai dengan detail lengkap
+        yang mencakup:
+        <ul className="list-disc list-inside">
+          <li>
+            <strong>Judul Film</strong>: Nama film tersebut.
+          </li>
+          <li>
+            <strong>Rating</strong>: Penilaian atau skor yang diberikan oleh
+            penonton atau kritikus film.
+          </li>
+          <li>
+            <strong>Sinopsis</strong>: Ringkasan cerita atau plot utama dari
+            film.
+          </li>
+          <li>
+            <strong>Negara</strong>: Negara asal produksi film tersebut.
+          </li>
+          <li>
+            <strong>Tanggal Rilis</strong>: Tanggal resmi film dirilis di
+            bioskop atau platform lainnya.
+          </li>
+          <li>
+            <strong>Genre</strong>: Kategori atau jenis film, seperti drama,
+            komedi, aksi, horor, dan sebagainya.
+          </li>
+        </ul>
       </p>
-      <p className="text-lg text-white">
-        At WMovies, we understand that filmmaking is a complex team
-        collaboration. From pre-production to production and post-production, we
-        prioritize quality and innovation in every step. By using the latest
-        technology and the best creative talent, we aim to create unforgettable
-        viewing experiences for our audience.
+      <p className="text-lg text-white mb-4">
+        Situs ini memiliki bagian yang menampilkan film-film dengan rating
+        tertinggi, yang disusun berdasarkan penilaian dari penonton dan
+        kritikus. Fitur ini membantu pengguna menemukan film-film berkualitas
+        tinggi dan paling direkomendasikan untuk ditonton.
       </p>
-      <p className="text-lg text-white">
-        We take pride in our diverse portfolio of films, ranging from drama,
-        comedy, to in-depth documentary films. Every film we produce is the
-        result of our dedication to creating and making a positive impact on
-        society.
+      <p className="text-lg text-white mb-4">
+        Fitur pencarian memungkinkan pengguna untuk mencari film berdasarkan
+        judul, negara, atau kriteria lainnya. Ini memudahkan pengguna untuk
+        menemukan informasi spesifik tentang film yang mereka cari.
+      </p>
+      <p className="text-lg text-white mb-4">
+        Bagian ini menampilkan film-film yang sedang populer dan banyak
+        dibicarakan oleh publik saat ini. Fitur ini terus diperbarui secara
+        berkala untuk memastikan bahwa pengguna mendapatkan informasi tentang
+        film-film yang sedang menjadi tren.
+      </p>
+
+      <p className="text-lg text-white mb-4">
+        Dengan berbagai fitur yang komprehensif ini, WMovies menjadi alat yang
+        sangat berguna bagi para penggemar film untuk menemukan dan melihat
+        nilai film dari film-film favorit mereka.
       </p>
 
       <Link
