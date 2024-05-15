@@ -1,28 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Search, Check, X } from "react-feather";
 
 function Navbar() {
-  const [isHidden, setIsHidden] = useState(false);
   const [confirmLogout, setConfirmLogout] = useState(false); // State untuk konfirmasi logout
   const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    let prevScrollPos = window.pageYOffset;
-
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      const isScrollingDown = prevScrollPos < currentScrollPos;
-
-      setIsHidden(isScrollingDown);
-      prevScrollPos = currentScrollPos;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const handleLogout = () => {
     setConfirmLogout(true); // Menampilkan modal konfirmasi logout
@@ -38,11 +19,7 @@ function Navbar() {
   };
 
   return (
-    <nav
-      className={`py-4 px-3 fixed top-0 w-full z-10 bg-navy transition-transform duration-300 ${
-        isHidden ? "-translate-y-full" : "translate-y-0"
-      }`}
-    >
+    <nav className="py-4 px-3 fixed top-0 w-full z-10 bg-navy">
       <div className="container flex justify-between items-center">
         <a href="/" className="text-yellow-400 text-2xl font-bold">
           WMovies
