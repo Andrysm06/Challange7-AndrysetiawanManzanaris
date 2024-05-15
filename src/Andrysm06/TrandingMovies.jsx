@@ -73,130 +73,136 @@ const TrendingMovies = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="bg-gray-900 text-white min-h-screen"
-    >
+    <div>
       <Navbar />
-      {!isLoggedIn ? (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
-          <p className="text-lg mb-4">
-            You must first log in to see more tranding movies.
-          </p>
-          <motion.a
-            whileHover={{ scale: 1.1 }}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            href="/Login-register"
-          >
-            Login
-          </motion.a>
-          <Link
-            to="/"
-            className=" mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
-          >
-            Back to Home
-          </Link>
-        </div>
-      ) : (
-        <div className="container mx-auto py-12 relative">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
-            Trending Movies
-          </h1>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {movies.map((movie) => (
-              <motion.div
-                key={movie.id}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col relative"
-                onClick={() => {
-                  navigate("/movie-details", { state: { id: movie.id } });
-                }}
-              >
-                <img
-                  className="w-full h-[300px] object-cover mb-2"
-                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <p className="text-sm md:text-base font-semibold line-clamp-2">
-                  {movie.title}
-                </p>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.3 }}
-                  className="flex items-center mt-1"
-                >
-                  <div className="w-4 mr-1">
-                    <StarRating rating={movie.vote_average} />
-                  </div>
-                  <p className="text-sm font-semibold">{movie.release_date}</p>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-          <div className="flex justify-center mt-8">
-            <Link to="/" className="mr-2">
-              <FontAwesomeIcon icon={faHome} />
-            </Link>
-            <motion.button
-              onClick={goToPrevPage}
-              disabled={currentPage === 1}
-              className={`${
-                currentPage === 1 ? "bg-gray-700" : "bg-yellow-400"
-              } px-4 py-2 rounded-full mr-2`}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="bg-gray-900 text-white min-h-screen"
+      >
+        {!isLoggedIn ? (
+          <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+            <p className="text-lg mb-4">
+              You must first log in to see more tranding movies.
+            </p>
+            <motion.a
               whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              href="/Login-register"
             >
-              Prev
-            </motion.button>
-            {[...Array(totalPages > 8 ? 8 : totalPages).keys()].map((num) => {
-              const pageNumber =
-                currentPage > 5 ? currentPage + num - 4 : num + 1;
-              return (
-                <motion.button
-                  key={pageNumber}
-                  onClick={() => setCurrentPage(pageNumber)}
-                  className={`${
-                    currentPage === pageNumber ? "bg-yellow-400" : "bg-gray-700"
-                  } px-4 py-2 rounded-full mr-2`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+              Login
+            </motion.a>
+            <Link
+              to="/"
+              className=" mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
+            >
+              Back to Home
+            </Link>
+          </div>
+        ) : (
+          <div className="container mx-auto py-12 relative">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
+              Trending Movies
+            </h1>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {movies.map((movie) => (
+                <motion.div
+                  key={movie.id}
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col relative"
+                  onClick={() => {
+                    navigate("/movie-details", { state: { id: movie.id } });
+                  }}
                 >
-                  {pageNumber}
-                </motion.button>
-              );
-            })}
-            {totalPages > 8 && (
+                  <img
+                    className="w-full h-[300px] object-cover mb-2"
+                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                  <p className="text-sm md:text-base font-semibold line-clamp-2">
+                    {movie.title}
+                  </p>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    className="flex items-center mt-1"
+                  >
+                    <div className="w-4 mr-1">
+                      <StarRating rating={movie.vote_average} />
+                    </div>
+                    <p className="text-sm font-semibold">
+                      {movie.release_date}
+                    </p>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+            <div className="flex justify-center mt-8">
+              <Link to="/" className="mr-2">
+                <FontAwesomeIcon icon={faHome} />
+              </Link>
               <motion.button
-                onClick={() => setCurrentPage(currentPage + 8)}
-                className="bg-gray-700 px-4 py-2 rounded-full"
+                onClick={goToPrevPage}
+                disabled={currentPage === 1}
+                className={`${
+                  currentPage === 1 ? "bg-gray-700" : "bg-yellow-400"
+                } px-4 py-2 rounded-full mr-2`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                ...
+                Prev
               </motion.button>
-            )}
-            <motion.button
-              onClick={goToNextPage}
-              disabled={currentPage === totalPages}
-              className={`${
-                currentPage === totalPages ? "bg-gray-700" : "bg-yellow-400"
-              } px-4 py-2 rounded-full ml-2`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              Next
-            </motion.button>
+              {[...Array(totalPages > 8 ? 8 : totalPages).keys()].map((num) => {
+                const pageNumber =
+                  currentPage > 5 ? currentPage + num - 4 : num + 1;
+                return (
+                  <motion.button
+                    key={pageNumber}
+                    onClick={() => setCurrentPage(pageNumber)}
+                    className={`${
+                      currentPage === pageNumber
+                        ? "bg-yellow-400"
+                        : "bg-gray-700"
+                    } px-4 py-2 rounded-full mr-2`}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {pageNumber}
+                  </motion.button>
+                );
+              })}
+              {totalPages > 8 && (
+                <motion.button
+                  onClick={() => setCurrentPage(currentPage + 8)}
+                  className="bg-gray-700 px-4 py-2 rounded-full"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  ...
+                </motion.button>
+              )}
+              <motion.button
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages}
+                className={`${
+                  currentPage === totalPages ? "bg-gray-700" : "bg-yellow-400"
+                } px-4 py-2 rounded-full ml-2`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Next
+              </motion.button>
+            </div>
           </div>
-        </div>
-      )}
-      <Footer />
-    </motion.div>
+        )}
+        <Footer />
+      </motion.div>
+    </div>
   );
 };
 
