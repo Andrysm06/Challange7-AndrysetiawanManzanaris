@@ -82,7 +82,7 @@ const TopRatedTV = () => {
         {!isLoggedIn ? (
           <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
             <p className="text-lg mb-4">
-              You must first log in to view top-rated TV shows.
+              You must first log in to view top tv shows.
             </p>
             <motion.a
               whileHover={{ scale: 1.1 }}
