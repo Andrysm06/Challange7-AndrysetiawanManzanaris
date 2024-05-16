@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 function ContactPage() {
   return (
@@ -14,9 +17,36 @@ function ContactPage() {
           Please contact us via one of the following methods:
         </p>
         <div className="flex flex-col space-y-2">
-          <p className="text-lg text-white">Email: wmovies@gmail.com</p>
-          <p className="text-lg text-white">Telepon: 123-456-789</p>
-          <p className="text-lg text-white"></p>
+          <p className="text-lg text-white">
+            <FontAwesomeIcon
+              icon={faEnvelope}
+              className="mr-2 text-yellow-400"
+            />
+            Email:{" "}
+            <a href="https://mail.google.com/" className="text-yellow-400">
+              wmovies@gmail.com
+            </a>
+          </p>
+          <p className="text-lg text-white">
+            <FontAwesomeIcon
+              icon={faInstagram}
+              className="mr-2 text-yellow-400"
+            />
+            Instagram:{" "}
+            <a href="https://instagram.com/" className="text-yellow-400">
+              @wmovies
+            </a>
+          </p>
+          <p className="text-lg text-white">
+            <FontAwesomeIcon
+              icon={faTwitter}
+              className="mr-2 text-yellow-400"
+            />
+            Twitter:{" "}
+            <a href="https://twitter.com/" className="text-yellow-400">
+              @wmovies
+            </a>
+          </p>
         </div>
       </div>
       <Link

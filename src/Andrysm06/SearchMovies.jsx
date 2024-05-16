@@ -89,7 +89,8 @@ const SearchMovies = () => {
             {!isLoggedIn ? (
               <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
                 <p className="text-lg mb-4">
-                  You need to log in first to search for movies.
+                  You need to log in first to search for movies or search tv
+                  shows.
                 </p>
                 <motion.a
                   whileHover={{ scale: 1.1 }}
