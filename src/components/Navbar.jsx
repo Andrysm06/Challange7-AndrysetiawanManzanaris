@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+// Navbar.jsx
+import React, { useState, useEffect } from "react";
 import { Search, Check, X } from "react-feather";
 
 function Navbar() {
   const [confirmLogout, setConfirmLogout] = useState(false); // State for logout confirmation
   const [showTVMenu, setShowTVMenu] = useState(false); // State for showing TV submenu
+  const [showMoviesMenu, setShowMoviesMenu] = useState(false); // State for showing Movies submenu
+  const [isScrolled, setIsScrolled] = useState(false); // State for tracking scroll
+  const [lastScrollTop, setLastScrollTop] = useState(0); // State for tracking last scroll position
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
@@ -19,8 +23,29 @@ function Navbar() {
     setConfirmLogout(false); // Hide logout confirmation modal
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollTop = window.scrollY;
+      setIsScrolled(currentScrollTop > 0);
+      if (currentScrollTop < lastScrollTop) {
+        setIsScrolled(false);
+      }
+      setLastScrollTop(currentScrollTop <= 0 ? 0 : currentScrollTop);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollTop]);
+
   return (
-    <nav className="py-4 px-3 fixed top-0 w-full z-10 bg-navy">
+    <nav
+      className={`py-4 px-3 fixed top-0 w-full z-10 bg-navy transition-all ${
+        isScrolled ? "-translate-y-full" : ""
+      }`}
+    >
       <div className="container flex justify-between items-center">
         <a href="/" className="text-yellow-400 text-2xl font-bold">
           WMovies
@@ -30,11 +55,11 @@ function Navbar() {
             <a
               href="#"
               className="text-white hover:text-yellow-200 transition-colors duration-300"
-              onClick={() => setShowTVMenu(!showTVMenu)} // Toggle submenu visibility on click
+              onClick={() => setShowTVMenu(!showTVMenu)} // Toggle TV submenu visibility on click
             >
               TV
             </a>
-            {showTVMenu && ( // Show submenu if showTVMenu is true
+            {showTVMenu && (
               <div className="absolute top-full left-0 bg-navy text-white py-2 px-4 rounded shadow-lg">
                 <a
                   href="/PopularTv"
@@ -42,7 +67,6 @@ function Navbar() {
                 >
                   Trending TV
                 </a>
-
                 <a
                   href="/TopRatedTv"
                   className="block py-1 hover:text-yellow-200"
@@ -52,18 +76,38 @@ function Navbar() {
               </div>
             )}
           </div>
-          <a
-            href="/UpComingMovies"
-            className="text-white hover:text-yellow-200 transition-colors duration-300"
-          >
-            UpComing
-          </a>
-          <a
-            href="/TopRatedMovies"
-            className="text-white hover:text-yellow-200 transition-colors duration-300"
-          >
-            Top Movies
-          </a>
+          <div>
+            <a
+              href="#"
+              className="text-white hover:text-yellow-200 transition-colors duration-300"
+              onClick={() => setShowMoviesMenu(!showMoviesMenu)} // Toggle Movies submenu visibility on click
+            >
+              Movies
+            </a>
+            {showMoviesMenu && (
+              <div className="absolute top-full left-0 bg-navy text-white py-2 px-4 rounded shadow-lg">
+                <a
+                  href="TrandingMovies"
+                  className="block py-1 hover:text-yellow-200"
+                >
+                  Trending Movies
+                </a>
+                <a
+                  href="/TopRatedMovies"
+                  className="block py-1 hover:text-yellow-200"
+                >
+                  Top Rated Movies
+                </a>
+                <a
+                  href="/UpcomingMovies"
+                  className="block py-1 hover:text-yellow-200"
+                >
+                  Upcoming Movies
+                </a>
+              </div>
+            )}
+          </div>
+
           <a
             href="/search-movie"
             className="text-white hover:text-yellow-200 transition-colors duration-300 flex items-center gap-2"
