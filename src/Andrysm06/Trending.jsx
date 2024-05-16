@@ -82,7 +82,7 @@ const TrandingMovies = () => {
         {!isLoggedIn ? (
           <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
             <p className="text-lg mb-4">
-              You must first log in to view tranding movies.
+              You must first log in to view trending movies.
             </p>
             <motion.a
               whileHover={{ scale: 1.1 }}
