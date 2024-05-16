@@ -23,7 +23,7 @@ const StarRating = ({ rating }) => {
       );
     }
   }
-  return <>{stars}</>; // Menggunakan fragment kosong sebagai parent
+  return <>{stars}</>;
 };
 
 const SearchMovies = () => {
@@ -33,6 +33,7 @@ const SearchMovies = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchType, setSearchType] = useState("movie");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,10 +53,15 @@ const SearchMovies = () => {
     }
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${e.target.value}&page=1&include_adult=false`
+        `https://api.themoviedb.org/3/search/${searchType}?api_key=${API_KEY}&language=en-US&query=${e.target.value}&page=1&include_adult=false`
       );
       setSearchResults(response.data.results);
       setTotalPages(response.data.total_pages);
+
+      // Jika jenis pencarian adalah "tv", navigasi ke halaman "/tv-show"
+      if (searchType === "tv") {
+        navigate("/tv-show");
+      }
     } catch (error) {
       console.error("Error fetching search results: ", error);
       setError("Error fetching search results");
@@ -102,15 +108,38 @@ const SearchMovies = () => {
             ) : (
               <div className="bg-navy text-white min-h-screen pt-16">
                 <div className="container mx-auto px-4 py-8">
-                  <div className="task-bar mb-4">
+                  <div className="task-bar mb-4 flex items-center justify-between">
                     <h2 className="text-white text-3xl font-semibold">
-                      Search Movies
+                      Search Movies or TV Shows
                     </h2>
+                    <div>
+                      <button
+                        className={`px-4 py-2 rounded-l-md ${
+                          searchType === "movie" ? "bg-blue-500" : "bg-gray-700"
+                        }`}
+                        onClick={() => setSearchType("movie")}
+                      >
+                        Movies
+                      </button>
+                      <button
+                        className={`px-4 py-2 rounded-r-md ${
+                          searchType === "tv" ? "bg-blue-500" : "bg-gray-700"
+                        }`}
+                        onClick={() => {
+                          setSearchType("tv");
+                          navigate("/search-tv");
+                        }}
+                      >
+                        TV Shows
+                      </button>
+                    </div>
                   </div>
                   <div className="relative mb-4">
                     <input
                       type="text"
-                      placeholder="Search movies..."
+                      placeholder={`Search ${
+                        searchType === "movie" ? "movies" : "TV shows"
+                      }...`}
                       value={searchTerm}
                       onChange={handleSearch}
                       className="bg-gray-800 text-white px-4 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-200"

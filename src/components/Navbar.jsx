@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useState, useEffect } from "react";
 import { Search, Check, X } from "react-feather";
 
@@ -40,6 +39,16 @@ function Navbar() {
     };
   }, [lastScrollTop]);
 
+  const toggleTVMenu = () => {
+    setShowTVMenu((prev) => !prev);
+    setShowMoviesMenu(false); // Close Movies menu when toggling TV menu
+  };
+
+  const toggleMoviesMenu = () => {
+    setShowMoviesMenu((prev) => !prev);
+    setShowTVMenu(false); // Close TV menu when toggling Movies menu
+  };
+
   return (
     <nav
       className={`py-4 px-3 fixed top-0 w-full z-10 bg-navy transition-all ${
@@ -55,9 +64,9 @@ function Navbar() {
             <a
               href="#"
               className="text-white hover:text-yellow-200 transition-colors duration-300"
-              onClick={() => setShowTVMenu(!showTVMenu)} // Toggle TV submenu visibility on click
+              onClick={toggleTVMenu} // Toggle TV submenu visibility on click
             >
-              TV
+              TV Shows
             </a>
             {showTVMenu && (
               <div className="absolute top-full left-0 bg-navy text-white py-2 px-4 rounded shadow-lg">
@@ -80,14 +89,14 @@ function Navbar() {
             <a
               href="#"
               className="text-white hover:text-yellow-200 transition-colors duration-300"
-              onClick={() => setShowMoviesMenu(!showMoviesMenu)} // Toggle Movies submenu visibility on click
+              onClick={toggleMoviesMenu} // Toggle Movies submenu visibility on click
             >
               Movies
             </a>
             {showMoviesMenu && (
               <div className="absolute top-full left-0 bg-navy text-white py-2 px-4 rounded shadow-lg">
                 <a
-                  href="TrandingMovies"
+                  href="/Trending"
                   className="block py-1 hover:text-yellow-200"
                 >
                   Trending Movies

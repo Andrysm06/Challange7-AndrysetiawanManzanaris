@@ -16,6 +16,8 @@ import UpcomingMovies from "./Andrysm06/UpComingMovies";
 import PopularTV from "./Andrysm06/serialTV/PopularTv";
 import TopRatedTV from "./Andrysm06/serialTV/TopRatedTv";
 import DetailTV from "./Andrysm06/serialTV/TvDetail";
+import TrendingMovies from "./Andrysm06/Trending";
+import SearchTV from "./Andrysm06/SearchTv";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -36,6 +38,10 @@ export default function App() {
       element: <SearchMovies />,
     },
     {
+      path: "/search-tv",
+      element: <SearchTV />,
+    },
+    {
       path: "/Login-register",
       element: <Login />,
     },
@@ -54,6 +60,10 @@ export default function App() {
     {
       path: "/TrandingMovies",
       element: <TrandingMovies />,
+    },
+    {
+      path: "/Trending",
+      element: <TrendingMovies />,
     },
     {
       path: "/AboutPage",
