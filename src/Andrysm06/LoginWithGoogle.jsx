@@ -99,7 +99,7 @@ const LoginWithGoogle = () => {
           href="/"
           className="text-white hover:text-yellow-200 transition-colors duration-300"
         >
-          Back To Home
+          Back to home
         </a>
       )}
     </>

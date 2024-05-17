@@ -72,7 +72,7 @@ function AboutPage() {
         to="/"
         className="inline-block mt-12 bg-yellow-300 rounded-full px-8 py-3 text-white font-semibold hover:bg-yellow-200"
       >
-        Back To Home
+        Back to home
       </Link>
     </div>
   );

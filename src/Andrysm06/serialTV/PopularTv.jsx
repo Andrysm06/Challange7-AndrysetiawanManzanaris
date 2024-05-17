@@ -95,7 +95,7 @@ const PopularTV = () => {
               to="/"
               className=" mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
             >
-              Back to Home
+              Back to home
             </Link>
           </div>
         ) : (
