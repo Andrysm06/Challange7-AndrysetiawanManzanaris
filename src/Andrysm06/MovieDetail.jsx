@@ -114,6 +114,7 @@ function MovieDetail() {
                 }}
               >
                 <div className="absolute inset-0 bg-black opacity-70"></div>
+
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                   {!isPlaying && !isTrailerPlaying && (
                     <motion.button
@@ -122,10 +123,10 @@ function MovieDetail() {
                       onClick={goBack}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                      Back
+                      Kembali
                     </motion.button>
                   )}
-                  <h1 className="text-4xl font-bold mb-4">{data?.title}</h1>
+                  <h1 className="text-4xl font-bold mb-4">{data?.name}</h1>
                   {!isTrailerPlaying && (
                     <>
                       <h2 className="text-xl font-semibold">Rating</h2>
@@ -134,21 +135,19 @@ function MovieDetail() {
                       </p>
                       <div className="flex justify-center items-center mb-4"></div>
                       <p className="text-lg mb-8">{data?.overview}</p>
-                      <h2 className="text-xl font-semibold">
-                        Country of Origin
-                      </h2>
+                      <h2 className="text-xl font-semibold">Negara Asal</h2>
                       <ul className="text-lg font-normal text-white ps-4 mb-4">
                         {data?.production_countries &&
                           data?.production_countries.map((country) => (
                             <li key={country.iso_3166_1}>{country.name}</li>
                           ))}
                       </ul>
-                      <h2 className="text-xl font-semibold">Release Date</h2>
+                      <h2 className="text-xl font-semibold">Tanggal Rilis</h2>
                       <p className="text-lg font-normal text-white ps-4 mb-4">
-                        {data?.release_date}
+                        {data?.first_air_date}
                       </p>
-                      <h2 className="text-xl font-semibold">Genres</h2>
-                      <div className="flex flex-wrap gap-2 justify-center">
+                      <h2 className="text-xl font-semibold">Genre</h2>
+                      <div className="flex flex-wrap gap-2 justify-center mb-4">
                         {genres.map((genre) => (
                           <span
                             key={genre}
@@ -160,6 +159,7 @@ function MovieDetail() {
                       </div>
                     </>
                   )}
+
                   {trailerUrl && !isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
@@ -170,7 +170,7 @@ function MovieDetail() {
                       }}
                     >
                       <FontAwesomeIcon icon={faPlay} className="mr-2" />
-                      Play Trailer
+                      Mainkan Trailer
                     </motion.button>
                   )}
 
@@ -192,7 +192,7 @@ function MovieDetail() {
                           }}
                           className="bg-red-700 text-white px-4 py-2 rounded mt-4 hover:bg-red-900"
                         >
-                          Close Trailer
+                          Tutup Trailer
                         </button>
                       </motion.div>
                     </div>

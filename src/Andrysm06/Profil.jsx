@@ -23,7 +23,6 @@ function Profile() {
         if (response.status === 200) {
           setUserData(data);
         }
-        console.log("authorize", data);
       } catch (error) {
         console.error("Error:", error);
       }

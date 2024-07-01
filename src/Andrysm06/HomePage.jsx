@@ -39,7 +39,7 @@ function HomePage() {
   const totalPages = 1;
 
   const data = useSelector((state) => state?.movie?.data);
-  console.log("data", data);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

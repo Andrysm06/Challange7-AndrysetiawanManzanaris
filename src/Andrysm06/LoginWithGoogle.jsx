@@ -30,7 +30,6 @@ const LoginWithGoogle = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
-      console.log("Login success:", codeResponse);
       try {
         const response = await axios.post(
           "https://shy-cloud-3319.fly.dev/api/v1/auth/google",
@@ -44,7 +43,7 @@ const LoginWithGoogle = () => {
           }
         );
         localStorage.setItem("token", response.data.data.token);
-        console.log("data", response.data);
+
         setIsLoggedIn(true);
         // Redirect or navigate to another page
       } catch (error) {

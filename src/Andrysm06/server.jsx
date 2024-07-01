@@ -77,6 +77,4 @@ app.get("/api/v1/auth/me", authenticate, (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+app.listen(PORT, () => {});

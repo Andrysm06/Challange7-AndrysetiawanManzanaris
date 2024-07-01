@@ -88,7 +88,8 @@ function DetailTV() {
             {!isLoggedIn ? (
               <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
                 <p className="text-lg mb-4">
-                  You must first log in to view TV show details.
+                  Anda harus login terlebih dahulu untuk melihat detail acara
+                  TV.
                 </p>
                 <motion.a
                   whileHover={{ scale: 1.1 }}
@@ -101,7 +102,7 @@ function DetailTV() {
                   to="/"
                   className="mt-1 px-2 py-2 text-yellow-400 hover:text-yellow-200 mr-4"
                 >
-                  Back to home
+                  Kembali ke halaman utama
                 </Link>
               </div>
             ) : (
@@ -122,7 +123,7 @@ function DetailTV() {
                       onClick={goBack}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                      Back
+                      Kembali
                     </motion.button>
                   )}
                   <h1 className="text-4xl font-bold mb-4">{data?.name}</h1>
@@ -134,20 +135,18 @@ function DetailTV() {
                       </p>
                       <div className="flex justify-center items-center mb-4"></div>
                       <p className="text-lg mb-8">{data?.overview}</p>
-                      <h2 className="text-xl font-semibold">
-                        Country of Origin
-                      </h2>
+                      <h2 className="text-xl font-semibold">Negara Asal</h2>
                       <ul className="text-lg font-normal text-white ps-4 mb-4">
                         {data?.production_countries &&
                           data?.production_countries.map((country) => (
                             <li key={country.iso_3166_1}>{country.name}</li>
                           ))}
                       </ul>
-                      <h2 className="text-xl font-semibold">Release Date</h2>
+                      <h2 className="text-xl font-semibold">Tanggal Rilis</h2>
                       <p className="text-lg font-normal text-white ps-4 mb-4">
                         {data?.first_air_date}
                       </p>
-                      <h2 className="text-xl font-semibold">Genres</h2>
+                      <h2 className="text-xl font-semibold">Genre</h2>
                       <div className="flex flex-wrap gap-2 justify-center mb-4">
                         {genres.map((genre) => (
                           <span
@@ -171,7 +170,7 @@ function DetailTV() {
                       }}
                     >
                       <FontAwesomeIcon icon={faPlay} className="mr-2" />
-                      Play Trailer
+                      Mainkan Trailer
                     </motion.button>
                   )}
 
@@ -193,7 +192,7 @@ function DetailTV() {
                           }}
                           className="bg-red-700 text-white px-4 py-2 rounded mt-4 hover:bg-red-900"
                         >
-                          Close Trailer
+                          Tutup Trailer
                         </button>
                       </motion.div>
                     </div>

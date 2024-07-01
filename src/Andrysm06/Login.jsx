@@ -61,7 +61,6 @@ const Login = () => {
           },
         }
       );
-      console.log("User data:", response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
