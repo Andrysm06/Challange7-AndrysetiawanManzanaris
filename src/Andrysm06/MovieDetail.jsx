@@ -114,12 +114,11 @@ function MovieDetail() {
                 }}
               >
                 <div className="absolute inset-0 bg-black opacity-70"></div>
-
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
                   {!isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
+                      className="mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
                       onClick={goBack}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
@@ -163,7 +162,7 @@ function MovieDetail() {
                   {trailerUrl && !isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      className="inline-block mt-4 bg-blue-600 rounded-full px-6 py-2 text-white font-semibold hover:bg-blue-900 flex items-center"
+                      className=" mt-4 bg-blue-600 rounded-full px-6 py-2 text-white font-semibold hover:bg-blue-900 flex items-center"
                       onClick={() => {
                         setIsPlaying(true);
                         setIsTrailerPlaying(true);

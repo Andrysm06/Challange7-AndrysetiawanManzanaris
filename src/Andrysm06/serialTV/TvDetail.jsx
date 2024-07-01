@@ -119,7 +119,7 @@ function DetailTV() {
                   {!isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
+                      className="mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
                       onClick={goBack}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
@@ -163,7 +163,7 @@ function DetailTV() {
                   {trailerUrl && !isPlaying && !isTrailerPlaying && (
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      className="inline-block mt-4 bg-blue-600 rounded-full px-6 py-2 text-white font-semibold hover:bg-blue-900 flex items-center"
+                      className=" mt-4 bg-blue-600 rounded-full px-6 py-2 text-white font-semibold hover:bg-blue-900 flex items-center"
                       onClick={() => {
                         setIsPlaying(true);
                         setIsTrailerPlaying(true);

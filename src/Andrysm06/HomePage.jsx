@@ -101,7 +101,7 @@ function HomePage() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={scrollToMovie}
-                  className="inline-block mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
+                  className="mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
                 >
                   <FontAwesomeIcon icon={faPlay} className="mr-2" />
                   Get Started
