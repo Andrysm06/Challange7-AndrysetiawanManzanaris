@@ -34,6 +34,7 @@ const SearchMovies = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchType, setSearchType] = useState("movie");
+  const [isPlaying, setIsPlaying] = useState(false); // Added state for playing trailer
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,14 +69,6 @@ const SearchMovies = () => {
     }
   };
 
-  // const goToPrevPage = () => {
-  //   setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  // };
-
-  // const goToNextPage = () => {
-  //   setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-  // };
-
   return (
     <div>
       <Navbar />
@@ -108,112 +101,105 @@ const SearchMovies = () => {
             ) : (
               <div className="bg-navy text-white min-h-screen pt-16">
                 <div className="container mx-auto px-4 py-8">
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
-                    {!isPlaying && !isTrailerPlaying && (
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        className="mt-4 bg-yellow-400 rounded-full px-6 py-2 text-white font-semibold hover:bg-yellow-600 flex items-center"
-                        onClick={goBack}
+                  <div className="task-bar mb-4 flex flex-col md:flex-row items-center justify-between">
+                    <h2 className="text-white text-2xl md:text-3xl font-semibold mb-2 md:mb-0">
+                      Search Movies or TV Shows
+                    </h2>
+                    <div>
+                      <button
+                        className={`px-4 py-2 rounded-l-md ${
+                          searchType === "movie" ? "bg-blue-500" : "bg-gray-700"
+                        }`}
+                        onClick={() => setSearchType("movie")}
                       >
-                        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                        Kembali
-                      </motion.button>
-                    )}
-                    <h1 className="text-4xl font-bold mb-4">{data?.name}</h1>
-                    {!isTrailerPlaying && (
-                      <>
-                        <h2 className="text-xl font-semibold">Rating</h2>
-                        <p className="text-lg font-normal text-white ps-4">
-                          {data?.vote_average}
-                        </p>
-                        <div className="flex justify-center items-center mb-4"></div>
-                        <p className="text-lg mb-8">{data?.overview}</p>
-                        <h2 className="text-xl font-semibold">Negara Asal</h2>
-                        <ul className="text-lg font-normal text-white ps-4 mb-4">
-                          {data?.production_countries &&
-                            data?.production_countries.map((country) => (
-                              <li key={country.iso_3166_1}>{country.name}</li>
-                            ))}
-                        </ul>
-                        <h2 className="text-xl font-semibold">Tanggal Rilis</h2>
-                        <p className="text-lg font-normal text-white ps-4 mb-4">
-                          {data?.first_air_date}
-                        </p>
-                        <h2 className="text-xl font-semibold">Genre</h2>
-                        <div className="flex flex-wrap gap-2 justify-center mb-4">
-                          {genres.map((genre) => (
-                            <span
-                              key={genre}
-                              className="bg-gray-800 text-white px-2 py-1 rounded"
-                            >
-                              {genre}
-                            </span>
-                          ))}
-                        </div>
-                      </>
-                    )}
-
-                    {trailerUrl && !isPlaying && !isTrailerPlaying && (
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        className=" mt-4 bg-blue-600 rounded-full px-6 py-2 text-white font-semibold hover:bg-blue-900 flex items-center"
+                        Movies
+                      </button>
+                      <button
+                        className={`px-4 py-2 rounded-r-md ${
+                          searchType === "tv" ? "bg-blue-500" : "bg-gray-700"
+                        }`}
                         onClick={() => {
-                          setIsPlaying(true);
-                          setIsTrailerPlaying(true);
+                          setSearchType("tv");
+                          navigate("/search-tv");
                         }}
                       >
-                        <FontAwesomeIcon icon={faPlay} className="mr-2" />
-                        Mainkan Trailer
-                      </motion.button>
-                    )}
-
-                    {trailerUrl && isPlaying && (
-                      <div className="fixed inset-0 z-50 flex justify-center items-center">
+                        TV Shows
+                      </button>
+                    </div>
+                  </div>
+                  <div className="relative mb-4">
+                    <input
+                      type="text"
+                      placeholder={`Search ${
+                        searchType === "movie" ? "movies" : "TV shows"
+                      }...`}
+                      value={searchTerm}
+                      onChange={handleSearch}
+                      className="bg-gray-800 text-white px-4 py-2 rounded-md w-full focus:outline-none focus:ring focus:border-blue-200"
+                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 absolute right-3 top-3 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a4 4 0 11-8 0 4 4 0 018 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.5 17.5l4.5 4.5"
+                      />
+                    </svg>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    {Array.isArray(searchResults) ? (
+                      searchResults.map((e) => (
                         <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          exit={{ scale: 0 }}
+                          key={e.id}
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex flex-col relative cursor-pointer"
+                          onClick={() => {
+                            navigate("/movie-details", { state: { id: e.id } });
+                          }}
                         >
-                          <YouTube
-                            videoId={trailerUrl}
-                            opts={{ playerVars: { autoplay: 1 } }}
+                          <img
+                            className="w-full h-[300px] object-cover mb-2"
+                            src={`https://image.tmdb.org/t/p/w500/${e.poster_path}`}
+                            alt={e.title}
                           />
-                          <button
-                            onClick={() => {
-                              setIsPlaying(false);
-                              setIsTrailerPlaying(false);
-                            }}
-                            className="bg-red-700 text-white px-4 py-2 rounded mt-4 hover:bg-red-900"
+                          <p className="text-sm md:text-base font-semibold line-clamp-2">
+                            {e.title}
+                          </p>
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.3 }}
+                            className="flex items-center mt-1"
                           >
-                            Tutup Trailer
-                          </button>
+                            <div className="w-4 mr-1">
+                              <StarRating rating={e.vote_average} />
+                            </div>
+                          </motion.div>
                         </motion.div>
-                      </div>
+                      ))
+                    ) : (
+                      <p>
+                        Data is not available or is not in the expected format.
+                      </p>
                     )}
                   </div>
                   <div className="flex justify-between mt-4">
-                    {/* <button
-                      onClick={goToPrevPage}
-                      disabled={currentPage === 1}
-                      className={`px-4 py-2 rounded-md ${
-                        currentPage === 1
-                          ? "bg-gray-700 text-gray-400"
-                          : "bg-blue-500 text-white hover:bg-blue-700"
-                      }`}
-                    >
-                      Previous
-                    </button> */}
-                    {/* <button
-                      onClick={goToNextPage}
-                      disabled={currentPage === totalPages}
-                      className={`px-4 py-2 rounded-md ${
-                        currentPage === totalPages
-                          ? "bg-gray-700 text-gray-400"
-                          : "bg-blue-500 text-white hover:bg-blue-700"
-                      }`}
-                    >
-                      Next
-                    </button> */}
+                    {/* Pagination buttons */}
                   </div>
                 </div>
               </div>
